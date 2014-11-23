@@ -19,11 +19,28 @@ def rev_comp(s):
 	rcomp=comp[::-1] #extended slices method to reverse a string
 	return rcomp
 
-args=parser.parse_args()
-if args.filetype=="s":
-	print rev_comp(args.Input)
-else:
-	pass
+##Concatenate sequences -- easier for multifasta --
+def fasta_formatter(Input):
+	L=[]
+	f=open(Input)
+	for x in f.readlines():
+		if x.startswith(">"):
+			L.append("\n")
+			L.append(x)
+		else : 
+			L.append(x.strip())
+	Output="".join(L)
+	return Output[1:]
 
-# if __name__ == '__main__':
-# 	main()
+def main():
+	args=parser.parse_args()
+	if args.filetype=="s":
+		print rev_comp(args.Input)
+	else:
+		Fasta=fasta_formatter(args.Input).split("\n")
+		for Seq in Fasta:
+			if Seq[0]==">":print Seq
+			else:print rev_comp(Seq) 
+
+if __name__ == '__main__':
+	main()
