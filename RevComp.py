@@ -4,18 +4,22 @@
 # Written by Hadrien Gourlé. Feel free to use and modify #
 import argparse
 
-Description = "Script that gives you the reverse complement of a sequence."
-parser = argparse.ArgumentParser(description=Description)
-parser.add_argument(
-					"filetype",
-					choices=["s", "f"],
-					help="Filetype. Can be a fasta containing several sequences (f) \
-						or a single sequence passed to stdin (s)",
-					metavar="[s], [f]")
-parser.add_argument(
-					"Input",
-					help="Input Sequence(s)",
-					metavar="[Sequence]")
+
+def parser():
+	Description = "Script that gives you the reverse complement of a sequence."
+	parser = argparse.ArgumentParser(description=Description)
+	parser.add_argument(
+						"filetype",
+						choices=["s", "f"],
+						help="Filetype. Can be a fasta containing several sequences (f) \
+							or a single sequence passed to stdin (s)",
+						metavar="[s], [f]")
+	parser.add_argument(
+						"Input",
+						help="Input Sequence(s)",
+						metavar="[Sequence]")
+	args = parser.parse_args()
+	return args
 
 
 def rev_comp(s):
@@ -46,7 +50,7 @@ def fasta_formatter(Input):
 
 
 def main():
-	args = parser.parse_args()
+	args = parser()
 	if args.filetype == "s":
 		print rev_comp(args.Input)
 	else:
