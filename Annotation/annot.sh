@@ -36,7 +36,7 @@ do
 		ctg_base=$(basename $contigs)
             ;;
         o) out_dir=$OPTARG
-		if [[ ! -d $OutDir ]]
+		if [[ ! -d $out_dir ]]
 	      then
 	        echo "Creating Output Directory"
 	        mkdir -p "$out_dir"
@@ -126,9 +126,9 @@ fasta_formatter -i "$out_dir/${ctg_base%.fasta}/$ctg_base.to_format.fasta" \
 	-o "$out_dir/${ctg_base%.fasta}/$ctg_base.shifted.fa" -w 80
 mv "$out_dir/${ctg_base%.fasta}/$ctg_base.shifted.fa" \
 "$out_dir/$ctg_base.shifted.fa"
-rm -rf "$out_dir/${ctg_base%.fasta}/"
+rm -rf "${out_dir:?}/${ctg_base%.fasta}/"
 prokka \
-	--outdir "$out_dir/${ctg_base%.fasta}" --force \
+	--outdir "$out_dir/${ctg_base%.fasta}_new" --force \
 	--genus Mycoplasma --species mycoides --strain "${ctg_base%.fasta}" \
 	--usegenus --gcode 4 --cpus 4 --locustag "${ctg_base%.fasta}" \
 	"$out_dir/$ctg_base.shifted.fa"
