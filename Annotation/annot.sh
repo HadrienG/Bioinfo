@@ -53,7 +53,7 @@ do
     esac
 done
 shift $((OPTIND-1))
-WorkDir=$(pwd)
+# WorkDir=$(pwd)
 pushd "$(dirname "$0")" >/dev/null
 ScriptPath=$(pwd)
 popd > /dev/null
@@ -120,7 +120,7 @@ prokka \
 	"$out_dir/$ctg_base.formatted.merged.fa"
 
 # find DnaA and reannotate
-python3 "$ScriptPath/dnaa_finder.py" "$out_dir/${ctg_base%.fasta}/"*.gbk \
+python3 "$ScriptPath/dnaa_finder.py" "$out_dir/${ctg_base%.fasta}/"*.gbf \
 "$out_dir/${ctg_base%.fasta}/$ctg_base.to_format.fasta" "${ctg_base%.fasta}"
 fasta_formatter -i "$out_dir/${ctg_base%.fasta}/$ctg_base.to_format.fasta" \
 	-o "$out_dir/${ctg_base%.fasta}/$ctg_base.shifted.fa" -w 80
