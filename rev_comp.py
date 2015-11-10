@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Written by Hadrien Gourlé. Feel free to use and modify #
+# Written by Hadrien Gourlé. Feel free to use and modify
 import argparse
 
 
-def parser():
+def get_args():
 	Description = "Script that gives you the reverse complement of a sequence."
 	parser = argparse.ArgumentParser(description=Description)
 	parser.add_argument(
@@ -50,7 +50,7 @@ def fasta_formatter(Input):
 
 
 def main():
-	args = parser()
+	args = get_args()
 	if args.filetype == "s":
 		print rev_comp(args.Input)
 	else:
